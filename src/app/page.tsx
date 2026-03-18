@@ -3,7 +3,7 @@ import Dashboard from '@/components/Dashboard';
 
 export const dynamic = 'force-dynamic';
 
-export default function Home() {
-  const data = getData();
+export default async function Home() {
+  const data = await getData();
   return <Dashboard data={data} />;
 }

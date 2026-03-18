@@ -1,33 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-import { TasksData, TaskStatus } from '@/lib/types';
+import { validateAuth } from '@/lib/auth';
+import { getAllData, createTask, updateTask } from '@/lib/db';
+import { TaskStatus } from '@/lib/types';
 
-const TASKS_FILE = path.join(process.cwd(), 'tasks.json');
-
-function readTasksFile(): TasksData {
-  const raw = fs.readFileSync(TASKS_FILE, 'utf-8');
-  return JSON.parse(raw) as TasksData;
-}
-
-function writeTasksFile(data: TasksData): void {
-  fs.writeFileSync(TASKS_FILE, JSON.stringify(data, null, 2) + '\n', 'utf-8');
-}
+export const dynamic = 'force-dynamic';
 
 const VALID_STATUSES: TaskStatus[] = ['not-started', 'in-progress', 'waiting', 'blocked', 'done'];
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!validateAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
-    const data = readTasksFile();
+    const data = await getAllData();
     return NextResponse.json(data);
-  } catch {
+  } catch (error) {
+    console.error('GET /api/tasks error:', error);
     return NextResponse.json({ error: 'Failed to read tasks' }, { status: 500 });
   }
 }
 
-export const dynamic = 'force-dynamic';
-
 export async function POST(request: NextRequest) {
+  if (!validateAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const { title, description, topic, project, priority, status } = body;
@@ -39,75 +37,59 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Topic ID is required' }, { status: 400 });
     }
 
-    const now = new Date().toISOString();
-    const taskId = `task-${topic}-${Date.now()}`;
-
-    const newTask = {
-      id: taskId,
+    const task = await createTask({
       title: title.trim(),
       description: (description || '').trim(),
       status: VALID_STATUSES.includes(status) ? status : 'not-started',
       priority: ['p1', 'p2', 'p3'].includes(priority) ? priority : 'p2',
       project: (project || '').trim(),
       topic,
-      createdAt: now,
-      updatedAt: now,
-      archivedAt: null,
-    };
+    });
 
-    const data = readTasksFile();
-    data.tasks.push(newTask);
-    writeTasksFile(data);
-
-    return NextResponse.json({ task: newTask }, { status: 201 });
-  } catch {
+    return NextResponse.json({ task }, { status: 201 });
+  } catch (error) {
+    console.error('POST /api/tasks error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
 export async function PATCH(request: NextRequest) {
+  if (!validateAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
-    const { id, status, archivedAt } = body;
+    const { id, status, archivedAt, priority, title, description, actionInstructions } = body;
 
     if (!id || typeof id !== 'string') {
       return NextResponse.json({ error: 'Missing or invalid task id' }, { status: 400 });
     }
 
-    const hasStatus = status !== undefined;
-    const hasArchivedAt = archivedAt !== undefined;
+    const patch: Record<string, unknown> = {};
+    if (status !== undefined) {
+      if (!VALID_STATUSES.includes(status)) {
+        return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
+      }
+      patch.status = status;
+    }
+    if (archivedAt !== undefined) patch.archivedAt = archivedAt;
+    if (priority !== undefined) patch.priority = priority;
+    if (title !== undefined) patch.title = title;
+    if (description !== undefined) patch.description = description;
+    if (actionInstructions !== undefined) patch.actionInstructions = actionInstructions;
 
-    if (!hasStatus && !hasArchivedAt) {
+    if (Object.keys(patch).length === 0) {
       return NextResponse.json({ error: 'No fields to update' }, { status: 400 });
     }
 
-    if (hasStatus && !VALID_STATUSES.includes(status)) {
-      return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
-    }
-
-    if (hasArchivedAt && archivedAt !== null && typeof archivedAt !== 'string') {
-      return NextResponse.json({ error: 'Invalid archivedAt value' }, { status: 400 });
-    }
-
-    const data = readTasksFile();
-    const taskIndex = data.tasks.findIndex(t => t.id === id);
-
-    if (taskIndex === -1) {
+    const task = await updateTask(id, patch as Parameters<typeof updateTask>[1]);
+    return NextResponse.json({ task });
+  } catch (error) {
+    if ((error as Error).message === 'Task not found') {
       return NextResponse.json({ error: 'Task not found' }, { status: 404 });
     }
-
-    if (hasStatus) {
-      data.tasks[taskIndex].status = status;
-    }
-    if (hasArchivedAt) {
-      data.tasks[taskIndex].archivedAt = archivedAt;
-    }
-    data.tasks[taskIndex].updatedAt = new Date().toISOString();
-
-    writeTasksFile(data);
-
-    return NextResponse.json({ task: data.tasks[taskIndex] });
-  } catch {
+    console.error('PATCH /api/tasks error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

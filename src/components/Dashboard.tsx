@@ -10,6 +10,11 @@ import ThemeToggle from './ThemeToggle';
 
 const ARCHIVE_THRESHOLD_MS = 3 * 24 * 60 * 60 * 1000; // 3 days
 
+const AUTH_HEADERS: HeadersInit = {
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${process.env.NEXT_PUBLIC_MC_API_KEY}`,
+};
+
 // ─── CreateTaskModal ─────────────────────────────────────────────────────────
 
 interface CreateTaskModalProps {
@@ -204,7 +209,7 @@ export default function Dashboard({ data }: Props) {
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const res = await fetch('/api/tasks');
+        const res = await fetch('/api/tasks', { headers: AUTH_HEADERS });
         if (res.ok) {
           const fresh: TasksData = await res.json();
           setTasks(fresh.tasks);
@@ -242,7 +247,7 @@ export default function Dashboard({ data }: Props) {
     // Persist to API
     fetch('/api/tasks', {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: AUTH_HEADERS,
       body: JSON.stringify({ id: taskId, archivedAt }),
     }).catch(() => {
       // Revert on failure
@@ -261,7 +266,7 @@ export default function Dashboard({ data }: Props) {
     // Persist to API
     fetch('/api/tasks', {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: AUTH_HEADERS,
       body: JSON.stringify({ id: taskId, archivedAt: null }),
     }).catch(() => {
       // Revert on failure
@@ -280,7 +285,7 @@ export default function Dashboard({ data }: Props) {
     // Persist to API
     fetch('/api/tasks', {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: AUTH_HEADERS,
       body: JSON.stringify({ id: taskId, status: newStatus }),
     }).catch(() => {
       // Revert on failure
@@ -302,7 +307,7 @@ export default function Dashboard({ data }: Props) {
     try {
       const res = await fetch('/api/tasks', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: AUTH_HEADERS,
         body: JSON.stringify(taskData),
       });
       if (res.ok) {
