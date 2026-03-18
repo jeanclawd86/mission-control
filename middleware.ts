@@ -1,11 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createHmac } from 'crypto';
 
-function expectedCookieValue(password: string): string {
-  return createHmac('sha256', password).update('mc_auth_token').digest('hex');
+async function expectedCookieValue(password: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(password),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const sig = await crypto.subtle.sign('HMAC', key, encoder.encode('mc_auth_token'));
+  return Array.from(new Uint8Array(sig))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Allow /login, /api/*, and static assets through
@@ -25,7 +35,8 @@ export function middleware(request: NextRequest) {
   }
 
   const cookie = request.cookies.get('mc_auth')?.value;
-  if (cookie && cookie === expectedCookieValue(password)) {
+  const expected = await expectedCookieValue(password);
+  if (cookie && cookie === expected) {
     return NextResponse.next();
   }
 
