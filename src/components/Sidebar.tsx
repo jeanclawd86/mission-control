@@ -10,6 +10,8 @@ interface Props {
   hiddenTopics: Set<number>;
   onSelectTopic: (topicId: number | null) => void;
   onToggleHidden: (topicId: number) => void;
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
 }
 
 const TOPIC_ICONS: Record<string, string> = {
@@ -21,15 +23,15 @@ const TOPIC_ICONS: Record<string, string> = {
   'Nicks app': '◎',
 };
 
-export default function Sidebar({ topics, tasks, selectedTopic, hiddenTopics, onSelectTopic, onToggleHidden }: Props) {
+export default function Sidebar({ topics, tasks, selectedTopic, hiddenTopics, onSelectTopic, onToggleHidden, mobileOpen, onMobileClose }: Props) {
   const [showHidden, setShowHidden] = useState(false);
   const activeTasks = tasks.filter(t => t.status !== 'done');
   const hiddenTopicsList = topics.filter(t => hiddenTopics.has(t.id));
 
   const allCount = activeTasks.filter(t => !hiddenTopics.has(t.topic)).length;
 
-  return (
-    <aside className="w-56 shrink-0 border-r border-gray-200 dark:border-gray-800/80 bg-white dark:bg-gray-950 flex flex-col">
+  const sidebarContent = (
+    <aside className="w-56 shrink-0 border-r border-gray-200 dark:border-gray-800/80 bg-white dark:bg-gray-950 flex flex-col h-full">
       {/* Logo */}
       <div className="px-5 py-5 border-b border-gray-200 dark:border-gray-800/80">
         <div className="flex items-center gap-2.5">
@@ -195,5 +197,24 @@ export default function Sidebar({ topics, tasks, selectedTopic, hiddenTopics, on
         </div>
       )}
     </aside>
+  );
+
+  return (
+    <>
+      {/* Desktop sidebar */}
+      <div className="hidden md:flex">
+        {sidebarContent}
+      </div>
+
+      {/* Mobile overlay drawer */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 flex md:hidden">
+          <div className="fixed inset-0 bg-black/50" onClick={onMobileClose} />
+          <div className="relative z-50 animate-slide-in-left">
+            {sidebarContent}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

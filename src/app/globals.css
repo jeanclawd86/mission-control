@@ -48,3 +48,21 @@ body {
 [data-dnd-sortable] {
   transition: transform 200ms cubic-bezier(0.25, 1, 0.5, 1);
 }
+
+/* Mobile sidebar slide-in animation */
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-in-left {
+  animation: slide-in-left 200ms ease-out;
+}
+
+/* Hide scrollbar for project tabs on mobile */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

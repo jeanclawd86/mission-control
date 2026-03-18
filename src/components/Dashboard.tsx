@@ -50,8 +50,8 @@ function CreateTaskModal({ topics, projects, defaultTopic, defaultProject, onClo
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-2xl w-full max-w-md mx-4" onClick={e => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
+      <div className="bg-white dark:bg-gray-900 sm:rounded-xl rounded-t-xl border border-gray-200 dark:border-gray-700 shadow-2xl w-full sm:max-w-md sm:mx-4 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
         <form onSubmit={handleSubmit}>
           <div className="px-5 pt-5 pb-4 space-y-4">
             <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100">New Task</h2>
@@ -199,6 +199,7 @@ export default function Dashboard({ data }: Props) {
   const [hiddenTopics, setHiddenTopics] = useState<Set<number>>(new Set());
   const [tasks, setTasks] = useState<Task[]>(data.tasks);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Load hidden topics from localStorage on mount
   useEffect(() => {
@@ -400,40 +401,55 @@ export default function Dashboard({ data }: Props) {
           onSelectTopic={(id) => {
             setSelectedTopic(id);
             setSelectedProject(null);
+            setSidebarOpen(false);
           }}
           onToggleHidden={toggleHidden}
+          mobileOpen={sidebarOpen}
+          onMobileClose={() => setSidebarOpen(false)}
         />
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
           {/* Top Bar */}
           <header className="shrink-0 border-b border-gray-200 dark:border-gray-800/80 bg-white dark:bg-gray-900/30 backdrop-blur-sm">
-            <div className="px-6 py-4 flex items-center justify-between">
-              <div>
-                <h1 className="text-lg font-semibold tracking-tight">{scopeLabel}</h1>
-                <p className="text-xs text-gray-500 dark:text-gray-500 mt-0.5">
-                  {activeTasks.length} active task{activeTasks.length !== 1 ? 's' : ''}
-                  {effectiveProject && (
-                    <span> in {visibleProjects.find(p => p.id === effectiveProject)?.name}</span>
-                  )}
-                </p>
+            <div className="px-3 py-2 md:px-6 md:py-4 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                {/* Hamburger — mobile only */}
+                <button
+                  onClick={() => setSidebarOpen(true)}
+                  className="md:hidden shrink-0 p-1.5 -ml-1 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  aria-label="Open menu"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+                <div className="min-w-0">
+                  <h1 className="text-base md:text-lg font-semibold tracking-tight truncate">{scopeLabel}</h1>
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-0.5">
+                    {activeTasks.length} active task{activeTasks.length !== 1 ? 's' : ''}
+                    {effectiveProject && (
+                      <span> in {visibleProjects.find(p => p.id === effectiveProject)?.name}</span>
+                    )}
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
                 <button
                   onClick={() => setShowCreateModal(true)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-violet-600 hover:bg-violet-500 rounded-lg transition-colors"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 md:px-3 text-xs font-medium text-white bg-violet-600 hover:bg-violet-500 rounded-lg transition-colors"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                   </svg>
-                  New Task
+                  <span className="hidden sm:inline">New Task</span>
                 </button>
                 <ThemeToggle dark={dark} onToggle={() => setDark(!dark)} />
               </div>
             </div>
 
             {/* Project Tabs */}
-            <div className="px-6 pb-3">
+            <div className="px-3 md:px-6 pb-2 md:pb-3 -mx-0 overflow-x-auto scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
               <ProjectTabs
                 projects={visibleProjects}
                 tasks={topicTasks}
@@ -445,7 +461,7 @@ export default function Dashboard({ data }: Props) {
 
           {/* Board + Archive */}
           <main className="flex-1 overflow-y-auto">
-            <div className="px-6 py-5 space-y-5">
+            <div className="px-3 py-3 md:px-6 md:py-5 space-y-5">
               <KanbanBoard
                 tasks={activeTasks}
                 topics={data.topics}

@@ -334,11 +334,31 @@ function DroppableColumn({
 
 // ─── KanbanBoard (main) ─────────────────────────────────────────────────────
 
+const DEFAULT_EXPANDED_COLUMNS: TaskStatus[] = ['in-progress', 'waiting'];
+
 export default function KanbanBoard({ tasks, topics, onArchive, onStatusChange, onReorder }: Props) {
   const topicMap = useMemo(() => new Map(topics.map(t => [t.id, t])), [topics]);
   const [expandedActions, setExpandedActions] = useState<Set<string>>(new Set());
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [overColumnId, setOverColumnId] = useState<string | null>(null);
+  const [collapsedColumns, setCollapsedColumns] = useState<Set<TaskStatus>>(() => {
+    const collapsed = new Set<TaskStatus>();
+    for (const col of STATUS_COLUMNS) {
+      if (!DEFAULT_EXPANDED_COLUMNS.includes(col.key)) {
+        collapsed.add(col.key);
+      }
+    }
+    return collapsed;
+  });
+
+  const toggleColumn = useCallback((status: TaskStatus) => {
+    setCollapsedColumns(prev => {
+      const next = new Set(prev);
+      if (next.has(status)) next.delete(status);
+      else next.add(status);
+      return next;
+    });
+  }, []);
 
   const toggleActions = useCallback((taskId: string) => {
     setExpandedActions(prev => {
@@ -466,7 +486,8 @@ export default function KanbanBoard({ tasks, topics, onArchive, onStatusChange, 
         droppable: { strategy: MeasuringStrategy.Always },
       }}
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3">
+      {/* Desktop: grid layout */}
+      <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-5 gap-3">
         {STATUS_COLUMNS.map((col) => (
           <DroppableColumn
             key={col.key}
@@ -480,6 +501,60 @@ export default function KanbanBoard({ tasks, topics, onArchive, onStatusChange, 
             isOver={overColumnId === `column-${col.key}`}
           />
         ))}
+      </div>
+
+      {/* Mobile: accordion layout */}
+      <div className="md:hidden space-y-2">
+        {STATUS_COLUMNS.map((col) => {
+          const colTasks = sortedTasksByColumn.get(col.key) || [];
+          const isCollapsed = collapsedColumns.has(col.key);
+          return (
+            <div key={col.key} className="rounded-lg border border-gray-200 dark:border-gray-800/80 overflow-hidden">
+              <button
+                onClick={() => toggleColumn(col.key)}
+                className="w-full flex items-center justify-between px-3 py-2.5 bg-gray-50 dark:bg-gray-900/50"
+              >
+                <span className="flex items-center gap-2">
+                  <svg
+                    className={`w-3 h-3 text-gray-400 transition-transform ${isCollapsed ? '' : 'rotate-90'}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                  <span className={`text-[11px] font-medium px-2 py-0.5 rounded-md border ${STATUS_COLORS[col.key]}`}>
+                    {col.label}
+                  </span>
+                </span>
+                <span className="text-[11px] text-gray-400 dark:text-gray-600 tabular-nums">
+                  {colTasks.length}
+                </span>
+              </button>
+              {!isCollapsed && (
+                <div className="p-2 space-y-2">
+                  {colTasks.length === 0 ? (
+                    <div className="flex items-center justify-center rounded-lg border border-dashed border-gray-200 dark:border-gray-800 min-h-[48px]">
+                      <span className="text-[11px] text-gray-400 dark:text-gray-600">No tasks</span>
+                    </div>
+                  ) : (
+                    colTasks.map((task) => (
+                      <TaskCard
+                        key={task.id}
+                        task={task}
+                        topicMap={topicMap}
+                        isExpanded={expandedActions.has(task.id)}
+                        onToggleActions={toggleActions}
+                        onArchive={onArchive}
+                      />
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {/* Drag Overlay — renders above everything, follows cursor */}
