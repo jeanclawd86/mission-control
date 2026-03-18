@@ -1,0 +1,557 @@
+{
+  "timestamp": "2026-03-17T16:04:29.097Z",
+  "tasks": {
+    "queued": [
+      {
+        "done": false,
+        "title": "Morning brief tuning",
+        "priority": "P2"
+      },
+      {
+        "done": false,
+        "title": "Memory search tuning",
+        "priority": "P2"
+      },
+      {
+        "done": false,
+        "title": "Mission Control dashboard",
+        "priority": "P3"
+      }
+    ],
+    "waiting": [
+      {
+        "done": false,
+        "title": "Update LinkedIn profile (headline, about, featured) — templates in `linkedin-positioning.md`",
+        "priority": "W"
+      },
+      {
+        "done": false,
+        "title": "Apply to Toptal, A.Team, Pangea — cover notes in `outreach-templates.md`",
+        "priority": "W"
+      },
+      {
+        "done": false,
+        "title": "Send warm outreach to 10 contacts — templates in `outreach-templates.md`",
+        "priority": "W"
+      },
+      {
+        "done": false,
+        "title": "Publish LinkedIn launch post — draft in `linkedin-positioning.md`",
+        "priority": "W"
+      },
+      {
+        "done": false,
+        "title": "Review side hustle criteria and pick a direction",
+        "priority": "W"
+      },
+      {
+        "done": false,
+        "title": "Fix Telegram sender allowlist (security)",
+        "priority": "W"
+      },
+      {
+        "done": false,
+        "title": "Test Apple Notes/Reminders tools (may need elevated permissions)",
+        "priority": "W"
+      }
+    ],
+    "completed": [
+      {
+        "done": true,
+        "title": "Identify 20 UX audit targets",
+        "priority": "P1"
+      },
+      {
+        "done": true,
+        "title": "UserLabs competitor deep dive",
+        "priority": "P1"
+      },
+      {
+        "done": true,
+        "title": "Draft UX audit landing page",
+        "priority": "P1"
+      },
+      {
+        "done": true,
+        "title": "Research warm outreach targets",
+        "priority": "P1"
+      },
+      {
+        "done": true,
+        "title": "UserLabs sales deck refresh",
+        "priority": "P1"
+      },
+      {
+        "done": true,
+        "title": "Set up outreach tracking sheet",
+        "priority": "P2"
+      },
+      {
+        "done": true,
+        "title": "Blogwatcher setup",
+        "priority": "P2"
+      },
+      {
+        "done": true,
+        "title": "Micro-SaaS prototype exploration",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Content strategy drafts",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "LinkedIn positioning guide",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Fractional platform research",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Income strategy research",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Outreach templates",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Identify 20 UX audit targets",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "UserLabs competitor deep dive",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Memory search fix",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Cron optimization",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "MEMORY.md curation",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Tool audit",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Token management research",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Alex Finn video analysis",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Cross-topic architecture",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Sub-agent patterns",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "UserLabs project doc",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Income tracker",
+        "priority": "P3"
+      },
+      {
+        "done": true,
+        "title": "Continuous operation setup",
+        "priority": "P3"
+      }
+    ],
+    "total": 36
+  },
+  "memory": {
+    "fileCount": 60,
+    "totalSizeKB": 327,
+    "files": [
+      {
+        "name": "heartbeat-state.json",
+        "size": 441,
+        "modified": "2026-03-17T12:07:32.874Z"
+      },
+      {
+        "name": "2026-03-16.md",
+        "size": 2272,
+        "modified": "2026-03-17T02:06:42.498Z"
+      },
+      {
+        "name": "task-queue.md",
+        "size": 6940,
+        "modified": "2026-03-17T02:06:25.530Z"
+      },
+      {
+        "name": "projects/microsaas-ideas.md",
+        "size": 15984,
+        "modified": "2026-03-17T02:04:26.307Z"
+      },
+      {
+        "name": "topics/blogwatcher-setup.md",
+        "size": 1590,
+        "modified": "2026-03-16T16:04:54.218Z"
+      },
+      {
+        "name": "2026-03-15.md",
+        "size": 2192,
+        "modified": "2026-03-16T02:01:41.304Z"
+      },
+      {
+        "name": "projects/linkedin-content-drafts.md",
+        "size": 8399,
+        "modified": "2026-03-16T02:01:20.314Z"
+      },
+      {
+        "name": "2026-03-14.md",
+        "size": 7104,
+        "modified": "2026-03-15T02:02:51.175Z"
+      },
+      {
+        "name": "projects/userlabs-sales-deck.md",
+        "size": 17572,
+        "modified": "2026-03-15T02:02:25.930Z"
+      },
+      {
+        "name": "topics/topic-registry.md",
+        "size": 3556,
+        "modified": "2026-03-14T19:06:21.137Z"
+      },
+      {
+        "name": "topics/topic-2017-kaboom-books.md",
+        "size": 364,
+        "modified": "2026-03-14T19:06:21.094Z"
+      },
+      {
+        "name": "projects/warm-outreach-targets.md",
+        "size": 13405,
+        "modified": "2026-03-14T16:03:48.344Z"
+      },
+      {
+        "name": "2026-03-13.md",
+        "size": 14400,
+        "modified": "2026-03-14T02:04:02.057Z"
+      },
+      {
+        "name": "topics/topic-16-active.md",
+        "size": 1207,
+        "modified": "2026-03-13T20:30:23.030Z"
+      },
+      {
+        "name": "topics/topic-71-active.md",
+        "size": 1256,
+        "modified": "2026-03-13T18:20:33.251Z"
+      },
+      {
+        "name": "projects/userlabs.md",
+        "size": 3941,
+        "modified": "2026-03-13T16:06:19.126Z"
+      },
+      {
+        "name": "projects/userlabs-competitors.md",
+        "size": 18338,
+        "modified": "2026-03-13T16:05:42.599Z"
+      },
+      {
+        "name": "topics/topic-22-active.md",
+        "size": 1079,
+        "modified": "2026-03-13T14:24:44.835Z"
+      },
+      {
+        "name": "topics/topic-1081-active.md",
+        "size": 812,
+        "modified": "2026-03-13T14:02:52.162Z"
+      },
+      {
+        "name": "topics/topic-699-active.md",
+        "size": 553,
+        "modified": "2026-03-13T14:02:42.191Z"
+      },
+      {
+        "name": "topics/topic-177-active.md",
+        "size": 644,
+        "modified": "2026-03-13T14:02:34.420Z"
+      },
+      {
+        "name": "topics/topic-21-active.md",
+        "size": 662,
+        "modified": "2026-03-13T14:02:26.983Z"
+      },
+      {
+        "name": "topics/session-continuity-instructions.md",
+        "size": 1516,
+        "modified": "2026-03-13T13:44:51.318Z"
+      },
+      {
+        "name": "topics/topic-71-jc-codes.md",
+        "size": 3607,
+        "modified": "2026-03-13T12:58:41.454Z"
+      },
+      {
+        "name": "topics/topic-71-crm-builder.md",
+        "size": 1696,
+        "modified": "2026-03-13T05:20:48.771Z"
+      },
+      {
+        "name": "projects/crm-plan.md",
+        "size": 7061,
+        "modified": "2026-03-13T05:19:42.211Z"
+      },
+      {
+        "name": "topics/income-strategies-research.md",
+        "size": 1092,
+        "modified": "2026-03-13T04:59:14.305Z"
+      },
+      {
+        "name": "2026-03-12.md",
+        "size": 5339,
+        "modified": "2026-03-13T02:47:33.989Z"
+      },
+      {
+        "name": "projects/ux-audit-targets.md",
+        "size": 15109,
+        "modified": "2026-03-13T02:03:34.000Z"
+      },
+      {
+        "name": "topics/topic-1081-slack-groups-research.md",
+        "size": 549,
+        "modified": "2026-03-12T22:46:45.340Z"
+      },
+      {
+        "name": "MEMORY.md",
+        "size": 5902,
+        "modified": "2026-03-12T22:32:14.469Z"
+      },
+      {
+        "name": "topics/topic-1081-slack-outreach.md",
+        "size": 461,
+        "modified": "2026-03-12T20:30:43.133Z"
+      },
+      {
+        "name": "projects/outreach-templates.md",
+        "size": 14624,
+        "modified": "2026-03-12T16:02:43.040Z"
+      },
+      {
+        "name": "topics/morning-brief-template.md",
+        "size": 1605,
+        "modified": "2026-03-12T14:58:22.356Z"
+      },
+      {
+        "name": "morning-brief-latest.md",
+        "size": 840,
+        "modified": "2026-03-12T12:30:32.030Z"
+      },
+      {
+        "name": "2026-03-11.md",
+        "size": 14438,
+        "modified": "2026-03-12T02:04:21.282Z"
+      },
+      {
+        "name": "topics/fractional-platforms.md",
+        "size": 11128,
+        "modified": "2026-03-12T02:04:04.461Z"
+      },
+      {
+        "name": "topics/topic-699-nolans-game.md",
+        "size": 1402,
+        "modified": "2026-03-11T22:54:34.988Z"
+      },
+      {
+        "name": "projects/linkedin-positioning.md",
+        "size": 9739,
+        "modified": "2026-03-11T16:01:50.008Z"
+      },
+      {
+        "name": "topics/topic-177-nicks-app.md",
+        "size": 443,
+        "modified": "2026-03-11T15:38:41.674Z"
+      },
+      {
+        "name": "topics/topic-21-sales.md",
+        "size": 492,
+        "modified": "2026-03-11T15:38:31.071Z"
+      },
+      {
+        "name": "topics/topic-22-self-care.md",
+        "size": 1495,
+        "modified": "2026-03-11T15:38:26.746Z"
+      },
+      {
+        "name": "2026-03-11-infra-session.md",
+        "size": 2844,
+        "modified": "2026-03-11T15:27:17.801Z"
+      },
+      {
+        "name": "topics/topic-16-fundraising.md",
+        "size": 706,
+        "modified": "2026-03-11T13:16:42.865Z"
+      },
+      {
+        "name": "topics/topic-1-general.md",
+        "size": 311,
+        "modified": "2026-03-11T13:16:33.572Z"
+      },
+      {
+        "name": "topics/tool-audit.md",
+        "size": 3810,
+        "modified": "2026-03-11T07:05:07.025Z"
+      },
+      {
+        "name": "topics/cron-optimization.md",
+        "size": 3406,
+        "modified": "2026-03-11T07:04:36.680Z"
+      },
+      {
+        "name": "topics/token-management.md",
+        "size": 3901,
+        "modified": "2026-03-11T07:04:12.486Z"
+      },
+      {
+        "name": "topics/subagent-patterns.md",
+        "size": 7176,
+        "modified": "2026-03-11T05:34:42.508Z"
+      },
+      {
+        "name": "topics/cross-topic-architecture.md",
+        "size": 5678,
+        "modified": "2026-03-11T05:33:58.147Z"
+      },
+      {
+        "name": "topics/memory-stress-test.md",
+        "size": 3721,
+        "modified": "2026-03-11T05:33:22.481Z"
+      },
+      {
+        "name": "projects/status-board.md",
+        "size": 1242,
+        "modified": "2026-03-11T05:21:19.273Z"
+      },
+      {
+        "name": "topics/continuous-operation.md",
+        "size": 3468,
+        "modified": "2026-03-11T05:21:07.218Z"
+      },
+      {
+        "name": "projects/income-tracker.md",
+        "size": 4465,
+        "modified": "2026-03-11T05:10:45.381Z"
+      },
+      {
+        "name": "topics/alex-finn-openclaw-patterns.md",
+        "size": 5124,
+        "modified": "2026-03-11T05:07:39.686Z"
+      },
+      {
+        "name": "2026-03-11-morning-report.md",
+        "size": 3665,
+        "modified": "2026-03-11T05:03:45.927Z"
+      },
+      {
+        "name": "2026-03-10.md",
+        "size": 1754,
+        "modified": "2026-03-10T20:07:24.714Z"
+      },
+      {
+        "name": "2026-03-09.md",
+        "size": 2814,
+        "modified": "2026-03-10T05:46:41.780Z"
+      },
+      {
+        "name": "topics/research-browser-automation.md",
+        "size": 30610,
+        "modified": "2026-03-10T05:31:14.301Z"
+      },
+      {
+        "name": "topics/research-vibe-coding.md",
+        "size": 28607,
+        "modified": "2026-03-10T05:30:06.145Z"
+      }
+    ]
+  },
+  "income": [
+    {
+      "name": "Care&Tours consulting",
+      "status": "ENDING",
+      "monthly": "~?K"
+    },
+    {
+      "name": "UserLabs pilots",
+      "status": "ACTIVE",
+      "monthly": "$4K (one-time so far)"
+    },
+    {
+      "name": "UserLabs outbound",
+      "status": "ACTIVE",
+      "monthly": "$0 (pipeline)"
+    },
+    {
+      "name": "Side hustle (TBD)",
+      "status": "PLANNING",
+      "monthly": "$0"
+    }
+  ],
+  "dailyFiles": [
+    {
+      "name": "2026-03-16.md",
+      "size": 2272,
+      "modified": "2026-03-17T02:06:42.498Z"
+    },
+    {
+      "name": "2026-03-15.md",
+      "size": 2192,
+      "modified": "2026-03-16T02:01:41.304Z"
+    },
+    {
+      "name": "2026-03-14.md",
+      "size": 7104,
+      "modified": "2026-03-15T02:02:51.175Z"
+    },
+    {
+      "name": "2026-03-13.md",
+      "size": 14400,
+      "modified": "2026-03-14T02:04:02.057Z"
+    },
+    {
+      "name": "2026-03-12.md",
+      "size": 5339,
+      "modified": "2026-03-13T02:47:33.989Z"
+    },
+    {
+      "name": "2026-03-11.md",
+      "size": 14438,
+      "modified": "2026-03-12T02:04:21.282Z"
+    },
+    {
+      "name": "2026-03-10.md",
+      "size": 1754,
+      "modified": "2026-03-10T20:07:24.714Z"
+    }
+  ]
+}
